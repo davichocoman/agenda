@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Minhas Agendas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Minhas Agendas</h1>
+
+        <!-- Exibe as agendas existentes -->
+        <ul>
+            {% for agenda in agendas %}
+                <h2>{{ agenda['nome'] }}</h2>
+                <p>{{ agenda['descricao'] }}</p>
+                <ul>
+                    {% for dia in agenda['dias'] %}
+                        <li>
+                            <a href="{{ url_for('ver_dia', agenda_id=agenda['id'], dia=dia) }}">Ver Tarefas para {{ dia }}</a>
+                            <!-- Link para Criar Tarefa, movido para dentro do loop -->
+                            <a href="{{ url_for('ver_dia', agenda_id=agenda['id'], dia=dia) }}">Criar Tarefa</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+
+        <!-- Botão para criar nova agenda -->
+        <a href="{{ url_for('criar_agenda') }}">
+            <button>Criar Nova Agenda</button>
+        </a>
+    </div>
+</body>
+</html>
+

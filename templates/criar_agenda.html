@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Nova Agenda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Criar Nova Agenda</h1>
+
+        <!-- Formulário para criar uma nova agenda -->
+        <form action="{{ url_for('criar_agenda') }}" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+        
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+
+            <h3>Selecione os Dias da Semana:</h3>
+            <div>
+                <label>
+                    <input type="checkbox" name="dias" value="Segunda">
+                    Segunda
+                </label><br>
+                <label>
+                    <input type="checkbox" name="dias" value="Terça">
+                    Terça
+                </label><br>
+                <label>
+                    <input type="checkbox" name="dias" value="Quarta">
+                    Quarta
+                </label><br>
+                <label>
+                    <input type="checkbox" name="dias" value="Quinta">
+                    Quinta
+                </label><br>
+                <label>
+                    <input type="checkbox" name="dias" value="Sexta">
+                    Sexta
+                </label><br>
+                <label>
+                    <input type="checkbox" name="dias" value="Sábado">
+                    Sábado
+                </label><br>
+                <label>
+                    <input type="checkbox" name="dias" value="Domingo">
+                    Domingo
+                </label><br>
+            </div>
+
+            <button type="submit">Criar Agenda</button>
+        </form>
+    </div>
+</body>
+</html>
+
+

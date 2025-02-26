@@ -1,0 +1,38 @@
+<!-- /templates/editar_tarefa.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+
+        <form action="{{ url_for('editar_tarefa', agenda_id=agenda.id, dia=dia, tarefa_id=tarefa_id) }}" method="POST">
+            <label for="tarefa">Tarefa:</label>
+            <input type="text" id="tarefa" name="tarefa" value="{{ tarefa.tarefa }}" required>
+
+            <label for="horario">Horário:</label>
+            <input type="time" id="horario" name="horario" value="{{ tarefa.horario }}" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required>{{ tarefa.descricao }}</textarea>
+
+            <label for="link">Link:</label>
+            <input type="url" id="link" name="link" value="{{ tarefa.link }}">
+
+            <label for="progresso">Progresso:</label>
+            <select name="progresso" id="progresso">
+                <option value="Em Andamento" {% if tarefa.progresso == 'Em Andamento' %}selected{% endif %}>Em Andamento</option>
+                <option value="Concluída" {% if tarefa.progresso == 'Concluída' %}selected{% endif %}>Concluída</option>
+                <option value="Não Concluída" {% if tarefa.progresso == 'Não Concluída' %}selected{% endif %}>Não Concluída</option>
+            </select>
+
+            <button type="submit">Atualizar Tarefa</button>
+        </form>
+    </div>
+</body>
+</html>
