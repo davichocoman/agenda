@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendas Arquivadas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #93f1fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Agenda Personnalisé</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <br>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary" style=" margin-left: 10%;">Voltar</a>
+
+    <div class="container">
+        <h1>Agendas Arquivadas</h1>
+        {% for agenda in agendas_arquivadas %}
+        <div class="agendas-board">
+            <h3>{{ agenda.nome }}</h3>
+            <p>{{ agenda.descricao }}</p>
+    
+            <!-- Link para restaurar agenda -->
+            <a href="{{ url_for('restaurar_agenda', agenda_id=agenda['id']) }}" class="btn btn-warning">Restaurar Agenda</a>
+            <a href="{{ url_for('excluir_agenda', agenda_id=agenda['id']) }}" class="btn btn-danger">Excluir Agenda</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

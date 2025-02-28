@@ -3,35 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial - Minhas Agendas</title>
+    <title>Agenda Personnalisé</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #93f1fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Agenda Personnalisé</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <br>
+
+    <!-- Botão para criar nova agenda -->
+    <a href="{{ url_for('criar_agenda') }}" class="btn btn-primary mb-3; btn-create-agenda">Criar Nova Agenda</a>
+    <!-- Link para visualizar agendas arquivadas -->
+    <a href="{{ url_for('agendas_arquivadas_view') }}" class="btn btn-primary mb-3; btn-arquivar-agenda">Ver Agendas Arquivadas</a>
+
+
+
     <div class="container">
         <h1>Minhas Agendas</h1>
+        <hr>
 
-        <!-- Exibe as agendas existentes -->
-        <ul>
-            {% for agenda in agendas %}
-                <h2>{{ agenda['nome'] }}</h2>
-                <p>{{ agenda['descricao'] }}</p>
-                <ul>
-                    {% for dia in agenda['dias'] %}
-                        <li>
-                            <a href="{{ url_for('ver_dia', agenda_id=agenda['id'], dia=dia) }}">Ver Tarefas para {{ dia }}</a>
-                            <!-- Link para Criar Tarefa, movido para dentro do loop -->
-                            <a href="{{ url_for('ver_dia', agenda_id=agenda['id'], dia=dia) }}">Criar Tarefa</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-        </ul>
-
-        <!-- Botão para criar nova agenda -->
-        <a href="{{ url_for('criar_agenda') }}">
-            <button>Criar Nova Agenda</button>
-        </a>
+        {% for agenda in agendas %}
+        <div class="agendas-board">
+            <h3>{{ agenda.nome }}</h3>
+            <p>{{ agenda.descricao }}</p>
+    
+            <!-- Link para visualizar a agenda -->
+            <a href="{{ url_for('ver_agenda', agenda_id=agenda['id']) }}" class="btn btn-primary mb-3">Ver Agenda</a>
+            <a href="{{ url_for('editar_agenda', agenda_id=agenda['id']) }}" class="btn btn-primary mb-3">Editar Agenda</a>
+    
+            {% if agenda['arquivada'] %}
+                <a href="{{ url_for('restaurar_agenda', agenda_id=agenda['id']) }}">Restaurar Agenda</a> |
+                <a href="{{ url_for('excluir_agenda', agenda_id=agenda['id']) }}">Excluir Agenda</a>
+            {% else %}
+                <a href="{{ url_for('duplicar_agenda', agenda_id=agenda['id']) }}" class="btn btn-primary mb-3">Duplicar Agenda</a>
+                <a href="{{ url_for('arquivar_agenda', agenda_id=agenda['id']) }}" class="btn btn-primary mb-3">Arquivar Agenda</a>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
+
 </body>
 </html>
+
 
